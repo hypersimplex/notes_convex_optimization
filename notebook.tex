@@ -111,7 +111,7 @@
   
   Chain rule:\\
   $f: \R \to \R, g: \R \to \R, h(x) = f(g(x))$\\
-  $\nabla h(x) = g'(f(x))  \nabla f(x)$\\
+  $\nabla h(x) = f'(g(x))  \nabla g(x)$\\
 
   $g:\R^m \to \R, g(x) = f(Ax+b)$\\
   $\nabla g(x) = A^T \nabla f(Ax+b)$\\
@@ -137,9 +137,9 @@
 
   SVD:\\
   $A_{m \times n} = U_{m \times m} \Sigma_{m \times n} V_{n \times n}^T$\\
-  U and V are left and right eigenvector matrixes\\
+  U and V are left and right singular vector matrixes\\
   U and V are orthogonal matrixes($BB^T=B^TB=I$)\\
-  $\Sigma$ is rectangular diagonal matrix of eigenvalues\\
+  $\Sigma$ is rectangular diagonal matrix of singular values\\
   $A_{m \times n}x_{n}$\\
   linear transformation: $U \Sigma V^T x$\\
   rotation - scaling - rotation
@@ -255,8 +255,8 @@
   2nd order:
   \begin{align*}
     &(\forall x \in dom\ f)\\
-    &\nabla^2 f(x) \succ 0 \iff f\ convex\\
-    &\nabla^2 f(x) \succeq 0 \implies f\ strictly\ convex
+    &\nabla^2 f(x) \succeq 0 \iff f\ convex\\
+    &\nabla^2 f(x) \succ 0 \implies f\ strictly\ convex
   \end{align*}
   extended value function:
   \begin{align*}
@@ -311,7 +311,7 @@
   take $y\to x: 0 \leq f''(x)$\\
   $f''(x) \geq \frac{f'(x+\delta x)-f'(x)}{\delta x}$\\
 
-  conversely, suppose that $f'(z) \geq 0, \forall z \in dom(f)$, take $x,y \in dom(f)$ W.L.O.G. $x < y$\\
+  conversely, suppose that $f''(z) \geq 0, \forall z \in dom(f)$, take $x,y \in dom(f)$ W.L.O.G. $x < y$\\
   $\int_x^y f''(z)(y-z) dz \geq 0$\\
   $f''(z) \geq 0, (y-z) \geq 0$\\
   $I_1 = \int_x^y f''(z)y dz =  y(f'(y)-f'(x))$\\
@@ -466,7 +466,7 @@
   \item indicator function $I_C(x)$
   \item $f(x)=e^{ax}, dom\ f=\R, \forall a \in \R \implies f$ convex
   \item $f(x)=x^a, dom\ f=\R_{++}, a \geq 1 \vee a \le 0 \implies f$ convex
-  \item $f(x)=x^a, dom\ f=\R_{++}, a \in [0,1] \implies f$ convex
+  \item $f(x)=x^a, dom\ f=\R_{++}, a \in [0,1] \implies f$ concave
   \item $f(x)=|x|^p, dom\ f = \R, p \geq 1 \implies f$ convex
   \item $f(x) = log(x), dom\ f = \R_{++} \implies f$ concave
   \item $f(x) = x log(x), dom\ f = \R_{++} \vee \R_{+} \implies f$ convex
@@ -631,7 +631,7 @@
     Fx = g
   \end{align*}
   \begin{align*}
-    (\forall i) b_i=0 \implies LP\\
+    (\forall i) A_i=0 \implies LP\\
     (\forall i) c_i=0 \implies QCQP
   \end{align*}
   \vfill\null
@@ -944,7 +944,7 @@
     &\Delta x_{nsd} = \argmin_{v} \set{ \nabla f(x)^T v : \norm{v} \leq 1 }\\
     &\Delta x_{nsd} = \frac{\Delta x_{sd}}{\norm{\nabla f(x)}}_*\\
     &\norm{\nabla f(x)}_* = \sup_y \{\nabla f(x)^T y: \|y\| \leq 1 \}\ (dual norm)\\
-    &\nabla f(x)^T \Delta x_{sd} = \nabla f(x)^T \Delta x_{nsd} \norm{\nabla f(x)}_* = \norm{\nabla f(x)}_*^2
+    &\nabla f(x)^T \Delta x_{sd} = \nabla f(x)^T \Delta x_{nsd} \norm{\nabla f(x)}_* = -\norm{\nabla f(x)}_*^2
   \end{align*}
 
   Steepest Descent for L2-Norm
@@ -1047,12 +1047,12 @@
   \begin{algorithm}[H]
     init $x_0 \in dom f$\\
     init $B_{0}$ (eg: $I$)\\
-    \While{$\norm{y_k}>\epsilon$}{
+    \While{$\norm{\nabla f(x_k)}>\epsilon$}{
     solve for $p_k$ in $B_{k} p_k = -\nabla f(x_k)$\\
     $t \leftarrow \argmin_s f(x_k + s p_k)$(or backtrack search)\\
     $s_k \leftarrow t p_k$\\
     $x_{k+1} \leftarrow x_k + s_k$\\
-    $y_k = f(x_{k+1}) - f(x_k)$\\
+    $y_k = \nabla f(x_{k+1}) - \nabla f(x_k)$\\
     $B_{k+1}=B_{k}+{\frac {\mathbf {y} _{k}\mathbf {y} _{k}^{\mathrm {T} }}{\mathbf {y} _{k}^{\mathrm {T} }\mathbf {s} _{k}}}-{\frac {B_{k}\mathbf {s} _{k}\mathbf {s} _{k}^{\mathrm {T} }B_{k}^{\mathrm {T} }}{\mathbf {s} _{k}^{\mathrm {T} }B_{k}\mathbf {s} _{k}}}$
     }
     \caption{BFGS Descent\label{BFGS}}
@@ -1296,7 +1296,7 @@
       &x \leftarrow descent\ update\\
       &\tilde{s} = \argmin_s \norm{x-s}, s.t.\ s \in X=feasibility\ set\\
       &let\ [x]^+ = \argmin_s \norm{x-s}, s.t.\ s \in X\\
-      &x_{k+1} \leftarrow [x_k + t \Delta x]^+, eg: \Delta x = \nabla f(x)
+      &x_{k+1} \leftarrow [x_k + t \Delta x]^+, eg: \Delta x = -\nabla f(x)
     \end{align*}
     Issues: projection hard in general, line search becomes harder. Ok for simple projection (eg: box constraints).
   \item Adapt Newton's Method with projection.
@@ -1575,7 +1575,7 @@
   $\varepsilon^{(k+1)} = \set{x: (x-x^+)^T (P^+)^{-1} (x-x^+) \leq 1}$\\
   $x^+ = x^{(k)} - \frac{1}{n+1} P \tilde{g}, n=dim\ of\ X$\\
   $P^+ = \frac{n^2}{n^2-1}(P-\frac{2}{n+1} P \tilde{g}\tilde{g}^T P)$\\
-  $Vol(\varepsilon^{(k+1)}) \leq e^{-\frac{1}{2^n}} Vol(\varepsilon^{(k)})$\\
+  $Vol(\varepsilon^{(k+1)}) \leq e^{-\frac{1}{2n}} Vol(\varepsilon^{(k)})$\\
   \vfill\null
   \columnbreak
   \section{Subgradient Method}
@@ -1810,7 +1810,7 @@
   Convergence: yes\\
   Sequence of objective value is non-increasing\\
   Optimal value exists and bounded below\\
-  CD algo. guaranteed to converge to a (local) minima whether or not objective function is convex\\
+  CD objective value guaranteed to converge whether or not objective function is convex\\
   global optimal: $
   \begin{cases}
     \text{No} , & \text{nonconvex obj}\\
@@ -1904,7 +1904,7 @@
   \begin{align*}
     \min_v (\nabla_x L)^T v + \frac{1}{2}v^T(\nabla_x^2L)v\\
     s.t. \nabla f_i(x)^Tv + f_i(x) \leq 0\\
-         \nabla h_i(x)^Tv + h_i(x) \leq 0
+         \nabla h_i(x)^Tv + h_i(x) = 0
   \end{align*}
 
   Updating $\lambda,v$?\\
@@ -2142,8 +2142,8 @@
     &\min f_{huber}(Ax-b)\\
     &f_{huber}(v) =
     \begin{cases}
-      \frac{v^2}{2} &, v \leq 1\\
-      \norm{v}_1 - \frac{1}{2} &, v \ge 1
+      \frac{v^2}{2} &, |v| \leq 1\\
+      \norm{v}_1 - \frac{1}{2} &, |v| \ge 1
     \end{cases}
   \end{align*}
   use proximal operator for Huber function instead of L1 when updating $z$:
