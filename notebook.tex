@@ -223,7 +223,7 @@
       .. & \frac{1}{\lambda_n}\\
     \end{bmatrix}
     \tilde{x} = \frac{\tilde{x_1}^2}{\lambda_1}+..+\frac{\tilde{x_n}^2}{\lambda_n}\leq 1\\
-    \text{volum of elipsoid proportional to } \sqrt{det(P)}=\sqrt{\Pi_i \lambda_i}
+    \text{volume of ellipsoid proportional to } \sqrt{det(P)}=\sqrt{\Pi_i \lambda_i}
   \end{align*}
   
   \vfill\null
@@ -244,7 +244,7 @@
     \\
     &(\forall x \neq y \in dom\ f) (\forall \theta \in (0,1))\\
     &f(\theta x +(1-\theta) y) < \theta f(x) + (1-\theta) f(y)\\
-    &\iff f\ stricly\ convex
+    &\iff f\ strictly\ convex
   \end{align*}
   1st order:
   \begin{align*}
@@ -256,7 +256,7 @@
   \begin{align*}
     &(\forall x \in dom\ f)\\
     &\nabla^2 f(x) \succ 0 \iff f\ convex\\
-    &\nabla^2 f(x) \succeq 0 \implies f\ stricly\ convex
+    &\nabla^2 f(x) \succeq 0 \implies f\ strictly\ convex
   \end{align*}
   extended value function:
   \begin{align*}
@@ -346,7 +346,7 @@
   \end{align*}
   \subsection{Convex Cone}
   Eg: $S^n, S^n_+$ are convex cones\\
-  convexity check for $S^N_+$:\\
+  convexity check for $S^n_+$:\\
   \begin{align*}
     x_1 \in S^n_+ \implies v^Tx_1v \geq 0\\
     x_2 \in S^n_+ \implies v^Tx_2v \geq 0\\
@@ -410,7 +410,7 @@
   \item $K^*$ closed and convex
   \item $K_1 \subseteq K_2 \implies K_2^* \subseteq K_1^*$
   \item $K$ has non-empty interior $\implies K^*$ pointed
-  \item $cl(K)$ pointed $\implies K^*$ has non-tempty interior
+  \item $cl(K)$ pointed $\implies K^*$ has non-empty interior
   \item $K^{**} = cl(convhull(K))$, useful for relaxed optimization
   \item $K$ convex and closed $\implies K=K^{**}$
   \end{itemize}
@@ -467,7 +467,7 @@
   \item $f(x)=e^{ax}, dom\ f=\R, \forall a \in \R \implies f$ convex
   \item $f(x)=x^a, dom\ f=\R_{++}, a \geq 1 \vee a \le 0 \implies f$ convex
   \item $f(x)=x^a, dom\ f=\R_{++}, a \in [0,1] \implies f$ convex
-  \item $f(x)=|x|^p, dom\ f = \R, p \geq 1 \imples f$ convex
+  \item $f(x)=|x|^p, dom\ f = \R, p \geq 1 \implies f$ convex
   \item $f(x) = log(x), dom\ f = \R_{++} \implies f$ concave
   \item $f(x) = x log(x), dom\ f = \R_{++} \vee \R_{+} \implies f$ convex
   \item $f(x)=\norm{x}_p, dom\ f = \R, \implies f$ convex
@@ -476,7 +476,7 @@
   \item $f(x) = log(\sum_i e^{x_i}), dom\ f = \R^n, \implies f$ convex\\
     note: $\max_i x_i \leq f(x) \leq \max_i x_i + log(n)$
   \item $f(x) = (\prod_i^n x_i)^{\frac{1}{n}}, dom\ f = \R_{++}^n, \implies f$ concave
-  \item $f(x) = log(det(X)), dom\ f = S_{++}^n, \implies f$ concacave
+  \item $f(x) = log(det(X)), dom\ f = S_{++}^n, \implies f$ concave
   \end{itemize}
   
   \subsection{log det X, concave}
@@ -502,7 +502,6 @@
     \nabla^2 f = \frac{1}{(1^Tz)^2} (1^Tz diag(z) -zz^T)\\
     v^T zz^T v = det(v^T zz^T v) = det(vv^T zz^T)\\
     v^T zz^T v = \sum_j \sum_i z_j z_i v_j v_i\\
-    v^T zz^T v = (\sum_j z_j z_j)(\sum_i z_i v_i)\\
     v^T zz^T v = (\sum_i z_i v_i)^2\\
     use\ Holder's\ Inequality:\\
     \|a\|_2^2 \|b\|_2^2 \geq |a^Tb|^2\\
@@ -524,7 +523,7 @@
     v^T \nabla^2 f v = \frac{-(\Pi_i x_i)^{\frac{1}{n}}}{n^2}(n \sum_i \frac{v_i^2}{x_i^2} - (\sum_i \frac{v_i}{x_i})^2)\\\
     apply\ Cauchy\ Schwartz\ Inequality:\\
     let\ a=\bold{1}, b_i = \frac{v_i}{x_i}\\
-    \|\bold{1}\|_2^2 (\sum_i \frac{v_i^2}{x_i}) \geq (\sum_i \frac{v_i}{x_i})^2\\
+    \|\bold{1}\|_2^2 (\sum_i \frac{v_i^2}{x_i^2}) \geq (\sum_i \frac{v_i}{x_i})^2\\
     n \sum_i \frac{v_i^2}{x_i^2} - (\sum_i \frac{v_i}{x_i})^2 \geq 0\\
     v^T \nabla^2 f v \leq 0 \iff f\ concave
   \end{align*}
@@ -651,14 +650,14 @@
   $\tilde{f_i} = log(f_i)$ becomes log sum exp (convex)\\
   If all constraints and objective are monomials, reduces to LP after transform.
 
-  \subsection*{Generlized Inequality, Conic}
+  \subsection*{Generalized Inequality, Conic}
     \begin{align*}
     \min_x\ c^Tx\ s.t.:\\
     F x + g \preceq_K 0\\
     Ax=b
     \end{align*}
     
-  \subsection*{Gneralized Inequality, SDP}
+  \subsection*{Generalized Inequality, SDP}
   general, standard, inequality forms
   \begin{align*}
     \min_x\ c^Tx\ s.t.:\\
@@ -714,7 +713,7 @@
 
   $\implies$ strong duality and problem is convex
 
-  \subsection{Slater's Constaint Qual., Variant}
+  \subsection{Slater's Constraint Qual., Variant}
   $x^* \in relint(D)$ and
   
   partition inequalities $f_0, .., f_a, .., f_{n-1}$, s.t.
@@ -771,7 +770,7 @@
   Lagrangian dual function, $g: R^m \rightarrow R^p \rightarrow R$, is:
   \begin{align*}
     &g(\lambda, v) = \inf_{x \in D} L(x,\lambda,v)\\
-    &f(\lambda, v) = \inf_{x \in D} (f_0(x) + \sum_i^m \lambd_i f_i(x) + \sum_i^p v_i h_i(x)))\\
+    &g(\lambda, v) = \inf_{x \in D} (f_0(x) + \sum_i^m \lambda_i f_i(x) + \sum_i^p v_i h_i(x))\\
     &D = (\bigcap_i^m dom\ f_i) \cap (\bigcap_i^p dom\ h_i)
   \end{align*}
   pointwise infimum of family of affine functions of $(\lambda, v)$ $\implies$ g is concave wrt. $\lambda, v$ unconditionally
@@ -804,7 +803,7 @@
     
   \subsection{Conjugate Function}
 
-  conjugte function $f^*$ of $f$ defined as:
+  conjugate function $f^*$ of $f$ defined as:
 
   $f^*(y) = \sup_{x \in dom\ f} (y^Tx - f(x))$ where $f: R^n \rightarrow R$
 
@@ -814,7 +813,7 @@
   \begin{align*}
     &f(x) \geq y^T x - \alpha, \forall x \in V, \exists \alpha\\
     &\alpha \geq y^T x - f(x), \forall x \in V, \exists \alpha\\
-    &\alpha \geq \sup_{x \in V} (y^T m - f(x))
+    &\alpha \geq \sup_{x \in V} (y^T x - f(x))
   \end{align*}
   where we simply pick the affine minorant (best / upper lower bound) of $f$ that satisfies constraint of the supporting hyperplane (other candidates would not work since a hyperplane defined using one of those would not capture all elements of the $epi\ f$ on one side of the hyperplane)
 
@@ -860,7 +859,7 @@
 
   take a larger feasible set and optimize in it instead, resulting optimal value is smaller or equal to the original
 
-  equality contraints that are convex but not affine, make them inequalities thus transforming to convex problem
+  equality constraints that are convex but not affine, make them inequalities thus transforming to convex problem
   
   \vfill\null
   \columnbreak
@@ -889,7 +888,7 @@
   \item variable constraints
     \begin{itemize}
     \item box
-    \item one sidded bound
+    \item one sided bound
     \end{itemize}
   \end{itemize}
 
@@ -924,7 +923,7 @@
     $\alpha \in (0,0.5)$\;
     $\beta \in (0,1)$\;
     $t \leftarrow$ 1\;
-    \While{$f(x+ t \Delta x > f(x) + \alpha t \nabla f(x)^T \Delta x$}{
+    \While{$f(x+ t \Delta x) > f(x) + \alpha t \nabla f(x)^T \Delta x$}{
       $t \leftarrow \beta t$\;
     }
     \caption{Backtracking Line Search\label{LS_BT}}
@@ -1025,7 +1024,7 @@
   $B=B^T$\\
   Satisfaction of Secant equation:
   \begin{align*}
-    &B_{k+1} (x_{k+1}-x_k) = \nabla f_{k+1} - \nabla f_K\\
+    &B_{k+1} (x_{k+1}-x_k) = \nabla f_{k+1} - \nabla f_k\\
     &B_{k+1} s_k = y_k
   \end{align*}
   Curvature condition:
@@ -1034,7 +1033,7 @@
     &s_k^T B_{k+1} s_k = s_k^T y_k\\
     &B_{k+1} \succ 0 \implies s_k^T y_k > 0
   \end{align*}
-  This need to be enforced if doing optimization on a non-convex function\\
+  This needs to be enforced if doing optimization on a non-convex function\\
 
   General problem of find $B$
   \begin{align*}
@@ -1246,7 +1245,7 @@
       b-Ax
     \end{bmatrix}
   \end{align*}
-  comparison with defintion of infeasible start Newton Method:
+  comparison with definition of infeasible start Newton Method:
   \begin{align*}
     &\begin{bmatrix}
       \nabla^2 f(x) & A^T \\
@@ -1344,7 +1343,7 @@
   \end{align*}
   Log barrier:
   \begin{align*}
-    &\Phi(x) = -\sum_i log(-f(x))
+    &\Phi(x) = -\sum_i log(-f_i(x))
   \end{align*}
   \begin{align*}
     &\min_x f_0(x) - \frac{1}{t} \sum_{i=1}^m log(-f_i(x))\\
@@ -1414,11 +1413,11 @@
   \end{align*}
   KKT optimality conditions for Log-Barrier problem:
   \begin{align*}
-    &\nabla f_0(x) - \frac{1}{t} \sum_i \frac{\nabla f(x)}{f_i(x)} + A^T w = 0\\
+    &\nabla f_0(x) - \frac{1}{t} \sum_i \frac{\nabla f_i(x)}{f_i(x)} + A^T w = 0\\
     &Ax - b = 0\\
     &f_i(x) \leq  0\ (domain\ of\ log)\\
     &let\ \lambda_i = -\frac{1}{t f_i(x)}\\
-    &\nabla f_0(x) + \sum_i \lambda_i \nabla f(x) + A^T w = 0\\
+    &\nabla f_0(x) + \sum_i \lambda_i \nabla f_i(x) + A^T w = 0\\
     &Ax - b = 0
   \end{align*}
   \vfill\null
@@ -1429,7 +1428,7 @@
   \end{align*}
   Overall (Modified) KKT conditions for Log-Barrier:
   \begin{align*}
-    &\nabla f_0(x) + \sum_i \lambda_i \nabla f(x) + A^T w = 0\\
+    &\nabla f_0(x) + \sum_i \lambda_i \nabla f_i(x) + A^T w = 0\\
     &f_i(x) \leq  0\\
     &Ax - b = 0\\
     &\lambda_i \geq 0\\
@@ -1457,7 +1456,7 @@
   \end{align*}
   KKT optimality conditions:
   \begin{align*}
-    &\nabla f_0(x) + \sum_i -\frac{1}{t f_i(x)} \nabla f(x) + A^T w = 0\\
+    &\nabla f_0(x) + \sum_i -\frac{1}{t f_i(x)} \nabla f_i(x) + A^T w = 0\\
     &f_i(x) \leq  0\\
     &Ax - b = 0\\
     &from\ dual:\\
@@ -1479,7 +1478,7 @@
   \subsubsection{Primal-Dual Interior Point Method\\ (Alternative to Barrier Method)}
   Overall (Modified) KKT conditions for Log-Barrier:
   \begin{align*}
-    &\nabla f_0(x) + \sum_i \lambda_i \nabla f(x) + A^T v = 0\\
+    &\nabla f_0(x) + \sum_i \lambda_i \nabla f_i(x) + A^T v = 0\\
     &f_i(x) \leq  0\\
     &Ax - b = 0\\
     &\lambda_i \geq 0\\
@@ -1506,7 +1505,7 @@
     &r(y+\Delta y) \approx r(y) + Dr(y)\Delta y = 0\\
     &Dr(y) =
       \begin{bmatrix}
-        \nabla^2 f_0(x) + \sum_i \lambda_i \nabla^2 f(x) & f_1'(x) & .. & f_m'(x) & A^T\\
+        \nabla^2 f_0(x) + \sum_i \lambda_i \nabla^2 f_i(x) & f_1'(x) & .. & f_m'(x) & A^T\\
         -\lambda_1 f_1'(x) & -f_1(x) & 0 & .. & \\
         .. & & ..& &\\
         -\lambda_m f_m'(x) & & 0 & -f_m(x) & 0\\
@@ -1535,16 +1534,16 @@
 
   $f$ is convex, $C^{1}$ only\\
   $(\forall x, x_0) f(x) \geq f(x_0) + \nabla f(x_0)^T(x-x_0)$\\
-  $\nabla f(x_0)^T (x-x_0) \geq 0 \implies f(x) \geq x(x_0)$\\
+  $\nabla f(x_0)^T (x-x_0) \geq 0 \implies f(x) \geq f(x_0)$\\
   Idea: use of halfspace to perform elimination of search space\\
   Selection of potential search points: use centroid of feasible polyhedron to maximize elimination space\\
-  Volumne reduction: $(X_{max} - X_{min})/2^k$\\
+  Volume reduction: $(X_{max} - X_{min})/2^k$\\
   \begin{algorithm}[H]
     \Do{Not Satisfy stopping criterion}{
       update select $x^{(k)}$ using center of $C^{(k)}$ where $x^* \in C^{(k-1)}$\\
-      $(\forall i ) C^{(k-1)}=\set{x: \nabla f(x^(i))^T (x-x^{(i)}) \leq 0 }$\\
+      $(\forall i ) C^{(k-1)}=\set{x: \nabla f(x^{(i)})^T (x-x^{(i)}) \leq 0 }$\\
       bisection:\\
-      $f'(x^{(k)}(x-x^{(k)})$ eliminates 1 side of halfspace\\
+      $f'(x^{(k)})(x-x^{(k)})$ eliminates 1 side of halfspace\\
       $C^{(k)}=C^{(k-1)} \cap \set{ x: \nabla f(x^{(k)})^T (x-x^{(k)}) \leq 0}$\\
     }
     \caption{Halfspace Elimination\label{HalfspaceElimi}}
@@ -1552,7 +1551,7 @@
 
   Pros:
   \begin{itemize}
-  \item cnetroid selection easy
+  \item centroid selection easy
   \item bisection evaluation easy
   \item exponential rate
   \end{itemize}
@@ -1570,11 +1569,11 @@
   \end{algorithm}
 
   Intersection search:\\
-  $g=\nabla f(x^{(k+!)})$\\
+  $g=\nabla f(x^{(k+1)})$\\
   $\tilde{g} = \frac{g}{\sqrt{g^TPg}}$\\
   $\varepsilon^{(k)} = \set{x: (x-x^{(k+1)})^T P^{-1} (x-x^{(k+1)}) \leq 1}$\\
   $\varepsilon^{(k+1)} = \set{x: (x-x^+)^T (P^+)^{-1} (x-x^+) \leq 1}$\\
-  $x^+ = x^{(k-1)} - \frac{1}{n+1} P \tilde{g}, n=dim\ of\ X$\\
+  $x^+ = x^{(k)} - \frac{1}{n+1} P \tilde{g}, n=dim\ of\ X$\\
   $P^+ = \frac{n^2}{n^2-1}(P-\frac{2}{n+1} P \tilde{g}\tilde{g}^T P)$\\
   $Vol(\varepsilon^{(k+1)}) \leq e^{-\frac{1}{2^n}} Vol(\varepsilon^{(k)})$\\
   \vfill\null
@@ -1591,7 +1590,7 @@
   properties:\\
   closed and convex for all f (nonconvex as well)\\
   can be empty for nonconvex f\\
-  $f$ is atleast $C^1\ at\ x \iff \partial f(x) = \{ \nabla f(x) \}$\\
+  $f$ is at least $C^1\ at\ x \iff \partial f(x) = \{ \nabla f(x) \}$\\
   $f\ convex \implies f(x^*) = min_x f(x) \iff 0 \in \partial f(x^*)$\\
   
   subgradient calculus:
@@ -1618,10 +1617,10 @@
     &Fu + Gv \leq h
   \end{align*}
 
-  Augment objective w/ constraint, partial Lagrandian
+  Augment objective w/ constraint, partial Lagrangian
   \begin{align*}
-    L(u,v,\lambda) &= c^Tu+d^tv + \lambda^T(Fu+Gv-h)\\
-    g(\lambda) &= \min_{u,v} c^Tu+d^tv + \lambda^T(Fu+Gv-h)\\
+    L(u,v,\lambda) &= c^Tu+d^Tv + \lambda^T(Fu+Gv-h)\\
+    g(\lambda) &= \min_{u,v} c^Tu+d^Tv + \lambda^T(Fu+Gv-h)\\
     s.t. & Au \leq b\\
          & Pv \leq q
   \end{align*}
@@ -1643,7 +1642,7 @@
   $(u^*,v^*)$ for a fixed $\lambda$:\\
   $S=Fu^*+Gv^*-h$ is a subgradient of $g$ at $\lambda$\\
   
-  $g(\tilde{\lambda}) = \min_{u,v} c^Tu + d^Tv + \tilde{\lambda}^T(Fu+Gv-h) \leq c^Tu^* + d^Tv^*+\tilde{\lambda}^T(Fu^8+Gv^*-h)$\\
+  $g(\tilde{\lambda}) = \min_{u,v} c^Tu + d^Tv + \tilde{\lambda}^T(Fu+Gv-h) \leq c^Tu^* + d^Tv^*+\tilde{\lambda}^T(Fu^*+Gv^*-h)$\\
 
   For $\forall u,v$ feasible:
   \begin{align*}
@@ -1677,19 +1676,19 @@
   
   Penalize objective w/ $\lambda^T(Fu+Gv-h)$
 
-  $(\exists u^8, v^*) Fu^*+Gv^* \leq h \implies \lambda$ decreases\\
-  $(\exists u^8, v^*) Fu^*+Gv^* \geq h \implies \lambda$ increases\\
+  $(\exists u^*, v^*) Fu^*+Gv^* \leq h \implies \lambda$ decreases\\
+  $(\exists u^*, v^*) Fu^*+Gv^* \geq h \implies \lambda$ increases\\
 
   Summary for decoupling LP:
   \begin{align*}
-    \min_{u,v} & c^t u + d^T v\\
+    \min_{u,v} & c^T u + d^T v\\
           s.t. & Au \leq b\\
                & Pv \leq q\\
                & Fu+Gv \leq h
   \end{align*}
   Subproblems:
   \begin{align*}
-    \min_{u} & c^t u + \lambda^T Fu\\
+    \min_{u} & c^T u + \lambda^T Fu\\
           s.t. & Au \leq b
   \end{align*}
   \begin{align*}
@@ -1705,14 +1704,14 @@
     set $\lambda^{(0)}>0$\\
     \Do{not meeting $\norm{f(u,v)-g(\lambda)}<\epsilon$}{
       solve 2 LP problems for fixed $\lambda^{(k)} \to (u^*,v^*)$\\
-      calculate $s^(k)=Fu^*+Gv^*-h$\\
-      update $\lambda^(k+1)=[\lambda^{(k)}+\alpha_k s^{(k)}]^+$
+      calculate $s^{(k)}=Fu^*+Gv^*-h$\\
+      update $\lambda^{(k+1)}=[\lambda^{(k)}+\alpha_k s^{(k)}]^+$
     }
     \caption{Decoupling LP with Subgradient\label{algo:LPSubgradient}}
   \end{algorithm}
 
   Choosing $\alpha_k$, derivation ultimately comes to:\\
-  $\sum_{k=1}^{\infty} a_k^2 < \infty$, $\sum_{k=1}^{\infty} a_k \to \infty \implies$\\
+  $\sum_{k=1}^{\infty} \alpha_k^2 < \infty$, $\sum_{k=1}^{\infty} \alpha_k \to \infty \implies$\\
   $\lambda^{(k)} \to \lambda^*,k\to\infty$\\
   eg: $\alpha_k = \frac{1}{k}$
 
@@ -1795,7 +1794,7 @@
   \vfill\null
   \columnbreak
 
-  \subsection{Coordinate Desecent}
+  \subsection{Coordinate Descent}
   \subsubsection{Unconstrained minimization problem}
   \begin{align*}
     \min_{x_1,x_2} f(x_1,x_2)\\
@@ -1806,7 +1805,7 @@
       fix $x_1$, min. over $x_2$\\
       fix $x_2$, min. over $x_1$
     }
-    \caption{Coordnate Descent\label{algo:CoordDescent}}
+    \caption{Coordinate Descent\label{algo:CoordDescent}}
   \end{algorithm}
   Convergence: yes\\
   Sequence of objective value is non-increasing\\
@@ -1860,7 +1859,7 @@
     &\implies\\
     &\nabla_x f(x_1^*,x_2^*) +
     \begin{bmatrix}
-      A^t & 0 \\
+      A^T & 0 \\
       0 & F^T
     \end{bmatrix}
     \begin{bmatrix}
@@ -1889,12 +1888,12 @@
   At point $x$:
   \begin{align*}
     f_0(x+v) \approx f_0(x) + \nabla f_0(x)^T v + \frac{1}{2} v^T \nabla^2 f_0(x) v\\
-    \min_v \nabla f_0(x)^T v + \frac{1}{2} v^T \nabla f_0^2(x) v\\
+    \min_v \nabla f_0(x)^T v + \frac{1}{2} v^T \nabla^2 f_0(x) v\\
     \Delta x = v^* \implies x = x + \alpha \Delta x, \alpha\ via\ line\ search
   \end{align*}
 
   Constrained problem:\\
-  Idea: form Lagrandian $L(x,\lambda,v)=f_0(x)+\sum_i \lambda_i f_i(x) + \sum_i v_i h_i(x)$
+  Idea: form Lagrangian $L(x,\lambda,v)=f_0(x)+\sum_i \lambda_i f_i(x) + \sum_i v_i h_i(x)$
   \begin{align*}
     \min_x L(x,\lambda,v)\\
     s.t. f_i(x) \leq 0\\
@@ -2011,7 +2010,7 @@
   \begin{align*}
     L_p = & f(x) + g(z) + \frac{\rho}{2} (||r+u||_2^2 - ||u||_2^2)\\
     x^{k+1} = & \argmin_{x} L_p = \argmin_{x} f(x)\\
-          & + \frac{\rho}{2}(||r+u||)_2^2-||u||_2^2)\\
+          & + \frac{\rho}{2}(||r+u||_2^2-||u||_2^2)\\
     \frac{\partial u}{\partial x} = & 0 \implies\\
     x^{k+1} = & \argmin_{x} f(x) + \frac{\rho}{2}||r+u||_2^2\\
     = & \argmin_{x} f(x) + \frac{\rho}{2}||Ax + Bz^k - c + u^k||_2^2\\
@@ -2081,7 +2080,7 @@
   \subsection{Convergence}
   \begin{align*}
     &\text{1. f and g convex, closed, proper}\\
-    &\text{2. unaugmented Lagrandgian has a saddle point}\\
+    &\text{2. unaugmented Lagrangian has a saddle point}\\
     &\implies\\
     &\text{1. residual convergence as }k \rightarrow \infty\\
     &\text{2. objective convergence as}k \rightarrow \infty\\
@@ -2099,7 +2098,7 @@
 
   make residuals small:
   \begin{align*}
-    &\norm{f^k}_2 \leq \epsilon^{pri}\\
+    &\norm{r^k}_2 \leq \epsilon^{pri}\\
     &\norm{s^k}_2 \leq \epsilon^{dual}
   \end{align*}
 
@@ -2190,9 +2189,9 @@
     &u=\frac{y}{\rho}\\
     &x^{k+1}=\argmin_x l(x) + \frac{\rho}{2}\norm{x-z^k-u^k}_2^2\\
     &z^{k+1}=\argmin_z L(x^{k+1}, z, y^k)\\
-    &0 \in = \partial g(z) - y^T + \rho (x^{k+1}-z)(-1)\\
-    &z^{k+1}=\argmin_z \lambda \norm{z}_1 + \frac{\rho}{2}\norm{x^{k+1}-z+u}_2^2\\
-    &z^{k+1}=\argmin_z \norm{z}_1 + \frac{\rho}{2\lambda}\norm{x^{k+1}+u-z}_2^2\\
+    &0 \in \partial g(z) - y^T + \rho (x^{k+1}-z)(-1)\\
+    &z^{k+1}=\argmin_z \lambda \norm{z}_1 + \frac{\rho}{2}\norm{x^{k+1}-z+u^k}_2^2\\
+    &z^{k+1}=\argmin_z \norm{z}_1 + \frac{\rho}{2\lambda}\norm{x^{k+1}+u^k-z}_2^2\\
     &z^{k+1}=prox_{\norm{*}_1, \frac{\lambda}{\rho}}(x^{k+1}+u^k)\\
     &z^{k+1}=\text{SoftThresholding}_{\frac{\lambda}{\rho}}(x^{k+1}+u^k)\\
     &u^{k+1} = u^k + x^{k+1} - z^{k+1}
@@ -2248,7 +2247,7 @@
     &\frac{\partial L}{\partial x} = A^T(Ax-b) + F^T y + \rho F^T(Fx-z)=0\\
     &A^T Ax + \rho F^TFx = A^T b - F^T y + \rho F^T z\\
     &x^{k+1} = (A^T A + \rho F^T F)^{-1}(A^T b + \rho F^T (z^k-u^k))\\
-    &\frac{\partial L}{\partial z} = \partial (\lambda \norm{z}_1) + \rho(Fz-z+u)(-1)\\
+    &\frac{\partial L}{\partial z} = \partial (\lambda \norm{z}_1) + \rho(Fx-z+u)(-1)\\
     &z^{k+1} = \argmin_z \lambda \norm{z}_1 + \frac{\rho}{2} \norm{Fx-z+u}_2^2\\
     &z^{k+1} = prox_{\norm{*}_1, \lambda/\rho} (Fx^{k+1}+u^k)\\
     &u^{k+1} = u^k + Fx^{k+1} - z^{k+1}
@@ -2285,7 +2284,7 @@
   \end{align*}
   simplification and averaging:
   \begin{align*}
-    &z^{k+1} = \frac{\bar{y_i}}{\rho} + \bar{x}^{k+1}\\
+    &z^{k+1} = \frac{\bar{y}}{\rho} + \bar{x}^{k+1}\\
     &\bar{y}^{k+1} = \bar{y}^k + \rho(\bar{x}^{k+1} - z^{k+1})\\
     &substitution \implies\\
     &\bar{y}^{k+1} = 0\\
@@ -2317,7 +2316,7 @@
   \subsubsection{splitting across features}
   TODO
   
-  Reference: Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers [Boyde et al.]
+  Reference: Distributed Optimization and Statistical Learning via the Alternating Direction Method of Multipliers [Boyd et al.]
   
   \vfill\null
   
@@ -2336,7 +2335,7 @@
   $f(x)=log(det X)$\\
   \begin{align*}
     f(X+\delta X) &= logdet(X+\delta X)\\
-                  &= logdet((X^{\frac{1}{2}}(I+X^{-\frac{1}{2}}) \delta X X^{-\frac{1}{2}})X^{\frac{1}{2}})\\
+                  &= logdet(X^{\frac{1}{2}}(I+X^{-\frac{1}{2}} \delta X X^{-\frac{1}{2}})X^{\frac{1}{2}})\\
                   &= logdet(X)+logdet(I+X^{-\frac{1}{2}} \delta X X^{-\frac{1}{2}})\\
                   & \text{let } M = X^{-\frac{1}{2}} \delta X X^{-\frac{1}{2}}\\
                   &= logdet(X)+logdet(I+M)
@@ -2345,11 +2344,11 @@
   \begin{align*}
     Mv_i &= \lambda_i v_i\\
     (I+M)v_i &= (1+\lambda_i)v_i\\
-    det(M)&=\prod_i(1+\lambda_i)\\
+    det(I+M)&=\prod_i(1+\lambda_i)\\
     f(X+\delta X) &= logdet(X) + log \prod_i(1+\lambda_i)\\
          &= logdet(X) + \sum_i log(1+\lambda_i)\\
          &\approx logdet(X) + \sum_i \lambda_i \text{ since } \delta X \text{ is small}\\
-         &\approx logdet(X) + trace(X^{-\frac{1}{2}} \delta X X^{\frac{1}{2}})\\
+         &\approx logdet(X) + trace(X^{-\frac{1}{2}} \delta X X^{-\frac{1}{2}})\\
          &\approx logdet(X) + trace(X^{-1} \delta X)\\
     trace(X^{-1} \delta X) &= (X^{-T})^T \delta X\\
     f(X+\delta X) &= f(X) + (\nabla f(X))^T \delta X \implies \nabla f(X) = X^{-1}\\
@@ -2358,7 +2357,7 @@
     
   \subsection{2nd order approximation of Log Det}
   \begin{align*}
-    f(X+\delta X) = f(X) + <\nabla f(X), \delta X>  + 1/2 <\delta X, \nabla^2 f(x) \delta X>
+    f(X+\delta X) = f(X) + <\nabla f(X), \delta X>  + 1/2 <\delta X, \nabla^2 f(X) \delta X>
   \end{align*}
   first look at first order approximation: $g(X) = X^{-1}$
   \begin{align*}
@@ -2374,7 +2373,7 @@
   
   \pagebreak
   
-  \section{Miscellaneuous Properties}
+  \section{Miscellaneous Properties}
   $(a+x)^{-1} \approx 1-x$\\
   $\lim_{t \to 0} \frac{f(x+\epsilon t) - f(x)}{t} = \ppartial{f(x)}{x} \epsilon$\\
 
@@ -2442,8 +2441,8 @@
   \subsection{polyhedron intersection}
 
   $D=\set{x\in\R^n: Cx \leq d}$\\
-  $G=\set{x\in\R^n: Cx \leq d}$\\
-  Solve $D \cap G = \O$? using LP:
+  $G=\set{x\in\R^n: Hx \leq g}$\\
+  Solve $D \cap G = \emptyset$? using LP:
   \begin{align*}
     &\min_{a,b,x}\ 0\\
     &s.t. a^Tx=b\\
@@ -2457,8 +2456,8 @@
     &e\leq 0
   \end{align*}
 
-  $f^*$ feasible and $f^* < 0 \implies D \cap G = \O$\\
-  otherwise, $\implies D \cap G \not= \O$\\
+  $f^*$ feasible and $f^* < 0 \implies D \cap G = \emptyset$\\
+  otherwise, $\implies D \cap G \not= \emptyset$\\
 
   Solve $D \subseteq G $? using LP:\\
   \begin{algorithm}[H]
@@ -2474,7 +2473,7 @@
       $
     }
     return $D \subseteq G$
-    \caption{Descent Overview\label{Descent}}
+    \caption{Polyhedron Inclusion via Vertex Feasibility\label{algo:PolyhedronInclusion}}
   \end{algorithm}  
 
 \end{multicols*}
