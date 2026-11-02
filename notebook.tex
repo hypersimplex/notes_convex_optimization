@@ -88,7 +88,7 @@
       \infty &, x \not\in C
     \end{cases}$\\
    
-  $prox_{f,\lambda}(y) = f(x)+\frac{1}{2 \lambda}\norm{x-v}_2^2$\\
+  $prox_{f,\lambda}(y) = \argmin_x (f(x)+\frac{1}{2 \lambda}\norm{x-y}_2^2)$\\
     
   $\text{SoftThresholding}_{\lambda}(y) = prox_{\norm{*}_1,\lambda}(y)$
 
@@ -288,11 +288,11 @@
  f convex $\iff \\ (\forall x,x_0 \in dom(f)) f(x) \geq f(x_0) + \nabla f(x_0)^T(x-x_0)$\\
 
   rough proof:\\
-  suppose $f(x)$ is convex but $(\exists x, x_0) f(x) < f(x) + \nabla f(x_0)^T(x-x_0)$\\
+  suppose $f(x)$ is convex but $(\exists x, x_0) f(x) < f(x_0) + \nabla f(x_0)^T(x-x_0)$\\
   then this means the function should bend across the tangent line which violates the convexity\\
   
   proof for converse direction:\\
-  suppose that $(\exists x, x_0) f(x) \geq f(x) + \nabla f(x_0)^T(x-x_0)$\\
+  suppose that $(\forall x, x_0) f(x) \geq f(x_0) + \nabla f(x_0)^T(x-x_0)$\\
   to show that $f(x)$ is convex lets take $x,y \in dom(f), z= \theta x + (1-\theta)y$\\
   $\theta f(x) + (1-\theta) f(y) \geq f(z) + \nabla f(z)^T(\theta x - \theta z + (1-\theta)y - (1-\theta)z)$\\
   $\theta f(x) + (1-\theta) f(y) \geq f(\theta x +(1-\theta)y)$\\
@@ -308,8 +308,7 @@
   $f'(x)(y-x) \leq f(y)-f(x) \leq f'(y)(y-x)$\\
   $f'(x)(y-x) \leq f'(y)(y-x) \implies 0 \leq (y-x)(f'(y)-f'(x))$\\
   % $\frac{x}{(y-x)^2} \implies 0 \leq \frac{f;(y)-f'(x)}{(y-x)}$
-  take $y\to x: 0 \leq f''(x)$\\
-  $f''(x) \geq \frac{f'(x+\delta x)-f'(x)}{\delta x}$\\
+  take $y\to x: f''(x) = \lim_{\delta x \to 0}\frac{f'(x+\delta x)-f'(x)}{\delta x} \geq 0$\\
 
   conversely, suppose that $f''(z) \geq 0, \forall z \in dom(f)$, take $x,y \in dom(f)$ W.L.O.G. $x < y$\\
   $\int_x^y f''(z)(y-z) dz \geq 0$\\
