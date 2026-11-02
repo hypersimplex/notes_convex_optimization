@@ -366,11 +366,11 @@
   \item convex
   \item closed(contains all limit points)
   \item solid(non-empty interior)
-  \item pointed(contains no line): $x \in K \implies -x \not\in K$
+  \item pointed(contains no line): $x \in K, x \neq 0 \implies -x \not\in K$
   \end{itemize}
   Then the proper cone K defines a generalized inequality ($\leq_K$) in $\R^n$
   \begin{align*}
-    x \leq_K y \implies y-x \in K\\
+    x \leq_K y \iff y-x \in K\\
     x <_K y \implies y-x \in int(K)
   \end{align*}
   Example: $K=R^n_+$ (non-negative orthant):
@@ -470,7 +470,7 @@
   \item $f(x)=|x|^p, dom\ f = \R, p \geq 1 \implies f$ convex
   \item $f(x) = log(x), dom\ f = \R_{++} \implies f$ concave
   \item $f(x) = x log(x), dom\ f = \R_{++} \vee \R_{+} \implies f$ convex
-  \item $f(x)=\norm{x}_p, dom\ f = \R, \implies f$ convex
+  \item $f(x)=\norm{x}_p, dom\ f = \R^n, p \geq 1 \implies f$ convex
   \item $f(x) = \max_i(x_i), dom\ f = \R^n, \implies f$ convex
   \item $f(x,y) = \frac{x^2}{y}, dom\ f = \R \times \R_{++}, \implies f$ convex
   \item $f(x) = log(\sum_i e^{x_i}), dom\ f = \R^n, \implies f$ convex\\
@@ -664,7 +664,7 @@
     LMI:\ \sum_i^n x_i F_i + G \preceq_K 0\\
     Ax=b\\
     x\in\R^n\\
-    F_i,G \in S^m, K\in S_+^m
+    F_i,G \in S^m, K=S_+^m
   \end{align*}
   \begin{align*}
     \min_X\ tr(CX) s.t.:\\
@@ -675,11 +675,11 @@
     \min_x\ c^Tx\ s.t.:\\
     \sum_i^n x_i A_i \preceq_K B\\
     Ax=b\\
-    B,A_i \in S^m, K\in S_+^m
+    B,A_i \in S^m, K=S_+^m
   \end{align*}
   concatenating constraints:
   \begin{align*}
-    F^{(i)}(x) = \sum_j x_j F_i^{(i)} + G^{(i)} \preceq 0\\
+    F^{(i)}(x) = \sum_j x_j F_j^{(i)} + G^{(i)} \preceq 0\\
     Gx \preceq h\\
     \implies\\
     diag(Gx-h, F^{(1)}(x),..,F^{(m)}(x)) \preceq 0\\
