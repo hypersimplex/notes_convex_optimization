@@ -107,7 +107,7 @@
 
   Taylor expansion approximation:\\
   $f(x) \approx f(x_0) + \nabla^T f(x_0)(x-x_0) + o((x-x_0)^2)$\\
-  $f(x+\delta x) \approx f(x_0) + \nabla^T f(x)\delta x + o((\delta x)^2)$\\
+  $f(x+\delta x) \approx f(x) + \nabla^T f(x)\delta x + o((\delta x)^2)$\\
   
   Chain rule:\\
   $f: \R \to \R, g: \R \to \R, h(x) = f(g(x))$\\
@@ -129,7 +129,7 @@
 
   Matrices:\\
   $A \in \R^{m \times n}$: set of all real matrices\\
-  inner product: $\sum_i \sum_j x_{ij} y_{ij} = trace(XY^T)=trace(Y^TX)=\sum_{i}(XY)_{ii}$\\
+  inner product: $\sum_i \sum_j x_{ij} y_{ij} = trace(XY^T)=trace(Y^TX)=\sum_{i}(XY^T)_{ii}$\\
   note trace has cyclic property\\
   frobenius norm: $\|X\|_F  = (\sum_i \sum_j X_{ij}^2)^{\frac{1}{2}}$\\
   range: $R(A) = \{Ax: x \in \R^n\}=\sum_i a_i x_i$, where $a_i$ is ith column (column space of A)\\
@@ -199,7 +199,7 @@
     C&=\{x: a^T(x-x_c) \leq 0\}, a \in \R^n, a \neq 0
   \end{align*}
   
-  Elipse
+  Ellipse
   \begin{align*}
     E(x_c,P) = \{ x: (x-x_c)^T P^{-1} (x-x_c) \leq 1 \}, P > 0\\
     P=r^2 I \implies \text{ Euclidean Ball }\\
@@ -331,13 +331,13 @@
   
   $x$ is a minimum in $S$ wrt. cone $K$:
   \begin{align*}
-    &x \in S: (\forall y \in S)f(y) \succeq_K f(x) \iff f(y)-f(x) \in S\\
+    &x \in S: (\forall y \in S) y \succeq_K x \iff y-x \in K\\
     &S \subseteq x+K
   \end{align*}
   $x$ is a minimal in $S$ wrt. cone $K$:
   \begin{align*}
-    &x \in S: (\forall y \in S)f(y) \preceq_K f(x) \implies x = y\\
-    &x \in S: (\forall y \in S) f(x)-f(y) \in K \implies x = y\\
+    &x \in S: (\forall y \in S) y \preceq_K x \implies x = y\\
+    &x \in S: (\forall y \in S) x-y \in K \implies x = y\\
     &(x-K) \cap S = \set{x}
   \end{align*}
   \subsection{Cone}
