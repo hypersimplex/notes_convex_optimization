@@ -1652,12 +1652,15 @@
   \end{align*}
   \begin{align*}
     g(\tilde{\lambda}) & \leq c^Tu^* + d^Tv^* + \tilde{\lambda}^T(Fu^*+Gv^*-h)\\
-                       & +\lambda^T(Fu^*+Gv^*-h)\\
-                       & -\lambda^T(Fu^*+Gv^*-h)\\
-    g(\lambda) & = c^Tu^*+d^Tv^* + \lambda^T(Fu^*+Gv^*-h)\\
+                       & \quad \text{(since } \min_{u,v} L(u,v,\tilde{\lambda}) \leq L(u^*,v^*,\tilde{\lambda})\text{)}\\
+                       & = c^Tu^* + d^Tv^* + \tilde{\lambda}^T(Fu^*+Gv^*-h)\\
+                       & \quad +\lambda^T(Fu^*+Gv^*-h) - \lambda^T(Fu^*+Gv^*-h)\\
+                       & = [c^Tu^*+d^Tv^* + \lambda^T(Fu^*+Gv^*-h)]\\
+                       & \quad + (\tilde{\lambda}-\lambda)^T(Fu^*+Gv^*-h)\\
+    \text{where } g(\lambda) & = c^Tu^*+d^Tv^* + \lambda^T(Fu^*+Gv^*-h)\\
     % (\tilde{\lambda}-\lambda)^T&(Fu^*+Gv^*-h) = \tilde{\lambda}^T(Fu^*+Gv^*-h)\\
     %                    &-\lambda^T(Fu^*+Gv^*-h)\\
-    g(\tilde{\lambda}) &= g(\lambda) + (\tilde{\lambda}-\lambda)^T(Fu^*+Gv^*-h)\\
+    \implies g(\tilde{\lambda}) &\leq g(\lambda) + (\tilde{\lambda}-\lambda)^T(Fu^*+Gv^*-h)\\
                        &= g(\lambda) + s^T(\tilde{\lambda}-\lambda)
   \end{align*}
 
@@ -1773,7 +1776,7 @@
       A & B \\
       B^T & C
     \end{bmatrix}\\
-    X \succeq 0 \iff A \succeq 0 \wedge C-B^TA^{-1}C \succeq 0\\
+    X \succeq 0 \iff A \succeq 0 \wedge C-B^TA^{-1}B \succeq 0\\
     X \succeq 0 \iff C \succeq 0 \wedge A-BC^{-1}B^T \succeq 0
   \end{align*}
 
@@ -1900,7 +1903,7 @@
     h_i(x) = 0
   \end{align*}
   
-  At $\lambda,v$ optimal dual dual variable
+  At $\lambda,v$ optimal dual variable
   \begin{align*}
     \min_v (\nabla_x L)^T v + \frac{1}{2}v^T(\nabla_x^2L)v\\
     s.t. \nabla f_i(x)^Tv + f_i(x) \leq 0\\
@@ -2053,7 +2056,7 @@
 
   augmented Lagrangian and scaled form ADMM
   \begin{align*}
-    &\min_x f(x) + g(z)\\
+    &\min_{x,z} f(x) + g(z)\\
     &g(z) = I_C(z)\\
     &s.t.\ x-z=0
   \end{align*}
@@ -2065,7 +2068,7 @@
     =& f(x) + g(z) + \frac{\rho}{2} \norm{r+\frac{y}{\rho}}_2^2 - \frac{\norm{y}_2^2}{2\rho}\\
     u=& \frac{y}{\rho}\\
     L_p(x,z,y) =& f(x) + g(z) + \frac{\rho}{2}(\norm{r+u}_2^2 - \norm{u}_2^2)\\
-    x^{k+1} =& \argmin_x f(x) + \frac{\rho}{2} \norm{r^k+u^k}_2^2\\
+    x^{k+1} =& \argmin_x f(x) + \frac{\rho}{2} \norm{r+u^k}_2^2\\
     x^{k+1} =& \argmin_x f(x) + \frac{\rho}{2} \norm{x-z^k+u^k}_2^2\\
     z^{k+1} =& \argmin_z g(z) + \frac{\rho}{2} \norm{x^{k+1}-z+u^k}_2^2\\
     z^{k+1} =& \argmin_z I_C(z) + \frac{\rho}{2} \norm{x^{k+1}-z+u^k}_2^2\\
@@ -2127,11 +2130,12 @@
     &+ \norm{Ax-b-z}_2^2\\
     &x^{k+1}=\argmin_x L(x,z^k,y^k)\\
     &\frac{\partial L}{\partial x}=A^T y + \rho A^T(Ax-b-z)=0\\
+    &u=\frac{y}{\rho}\\
     &x^{k+1}=(A^T A)^{-1}A^T(b+z^k-u^k)\\
     &z^{k+1}=\argmin_z L(x^{k+1},z,y^k)\\
     &0 \in \partial g(z) -y^k - \rho(Ax^{k+1}-b-z)\\
     &0 \in \frac{1}{\rho} \partial g(z) -\frac{y^k}{\rho} - (Ax^{k+1}-b-z)\\
-    &0 \in \frac{1}{\rho} \partial g(z) - (Ax+u-b-z)\\
+    &0 \in \frac{1}{\rho} \partial g(z) - (Ax^{k+1}+u^k-b-z)\ (u^k = \frac{y^k}{\rho})\\
     &z^{k+1} = \argmin_z g(z) + \frac{\rho}{2}\norm{Ax^{k+1}+u^k-b-z}_2^2\\
     &z^{k+1} = prox_{||*||_1, \frac{1}{\rho}}(Ax^{k+1}+u^k-b)\\
     &y^{k+1}=y^k + Ax^{k+1}-b-z^{k+1}
@@ -2187,9 +2191,13 @@
     &x^{k+1}=\argmin_x L(x, z^k, y^k)\\
     &0 \in \partial l(x) + y + \rho(x-z)\\
     &u=\frac{y}{\rho}\\
-    &x^{k+1}=\argmin_x l(x) + \frac{\rho}{2}\norm{x-z^k-u^k}_2^2\\
+    &0 \in \partial l(x) + \rho u^k + \rho(x-z^k)\\
+    &0 \in \partial l(x) + \rho(x-z^k+u^k)\\
+    &x^{k+1}=\argmin_x l(x) + \frac{\rho}{2}\norm{x-z^k+u^k}_2^2\\
     &z^{k+1}=\argmin_z L(x^{k+1}, z, y^k)\\
-    &0 \in \partial g(z) - y^T + \rho (x^{k+1}-z)(-1)\\
+    &0 \in \partial_z (l(x^{k+1}) + g(z) + y^T(x^{k+1}-z) + \frac{\rho}{2}\norm{x^{k+1}-z}_2^2)\\
+    &0 \in \partial g(z) - y + \rho (x^{k+1}-z)(-1)\\
+    &0 \in \partial g(z) - \rho(x^{k+1}-z+u^k)\\
     &z^{k+1}=\argmin_z \lambda \norm{z}_1 + \frac{\rho}{2}\norm{x^{k+1}-z+u^k}_2^2\\
     &z^{k+1}=\argmin_z \norm{z}_1 + \frac{\rho}{2\lambda}\norm{x^{k+1}+u^k-z}_2^2\\
     &z^{k+1}=prox_{\norm{*}_1, \frac{\lambda}{\rho}}(x^{k+1}+u^k)\\
@@ -2212,14 +2220,14 @@
   \end{align*}
   ADMM:
   \begin{align*}
-    &\min_x f(x) + g(z)\\
+    &\min_{x,z} f(x) + g(z)\\
     &s.t.\ x-z=0\\
     &L(x,z,y)=f(x) + g(z) + y^T(x-z) + \frac{\rho}{2}\norm{x-z}_2^2\\
     &x^{k+1} = \argmin_x L(x,z^k,y^k)\\
     &A^T(Ax-b) + y^k + \rho (x-z^k)=0\\
-    &x = (A^TA+\rho I)^{-1}(A^Tb + \rho (z^k-u^k))\\
+    &x^{k+1} = (A^TA+\rho I)^{-1}(A^Tb + \rho (z^k-u^k))\\
     &z^{k+1} = \argmin_z L(x^{k+1},z,y^k)\\
-    &0 \in \partial g(z) +\rho(x-z+u)(-1)\\
+    &0 \in \partial g(z) +\rho(x^{k+1}-z+u^k)(-1)\\
     &z^{k+1} = \argmin_z \lambda\norm{z}_1 + \frac{\rho}{2}\norm{x^{k+1}+u^k-z}_2^2\\
     &z^{k+1} = prox_{\norm{*}_1, \lambda/\rho}(x^{k+1}+u^k)\\
     &z^{k+1} = \text{SoftThresholding}_{\lambda/\rho}(x^{k+1}+u^k)\\
@@ -2247,8 +2255,8 @@
     &\frac{\partial L}{\partial x} = A^T(Ax-b) + F^T y + \rho F^T(Fx-z)=0\\
     &A^T Ax + \rho F^TFx = A^T b - F^T y + \rho F^T z\\
     &x^{k+1} = (A^T A + \rho F^T F)^{-1}(A^T b + \rho F^T (z^k-u^k))\\
-    &\frac{\partial L}{\partial z} = \partial (\lambda \norm{z}_1) + \rho(Fx-z+u)(-1)\\
-    &z^{k+1} = \argmin_z \lambda \norm{z}_1 + \frac{\rho}{2} \norm{Fx-z+u}_2^2\\
+    &\frac{\partial L}{\partial z} = \partial (\lambda \norm{z}_1) + \rho(Fx^{k+1}-z+u^k)(-1)\\
+    &z^{k+1} = \argmin_z \lambda \norm{z}_1 + \frac{\rho}{2} \norm{Fx^{k+1}-z+u^k}_2^2\\
     &z^{k+1} = prox_{\norm{*}_1, \lambda/\rho} (Fx^{k+1}+u^k)\\
     &u^{k+1} = u^k + Fx^{k+1} - z^{k+1}
   \end{align*}
@@ -2274,8 +2282,8 @@
   \end{align*}
   ADMM:
   \begin{align*}
-    &\min_x \sum_i f_i(x_i)\\
-    &s.t.\ x_i-z=0\\
+    &\min_{x_1,..,x_N,z} \sum_i f_i(x_i)\\
+    &s.t.\ x_i-z=0, \forall i\\
     &L(x,z,y) = \sum_i f_i(x_i)+y_i^T(x_i-z) + \frac{\rho}{2}\norm{x_i-z}_2^2\\
     &x_i^{k+1}=\argmin_{x_i} f_i(x_i)+{y_i^k}^T(x_i-z^k) + \frac{\rho}{2}\norm{x_i-z^k}_2^2\\
     &\frac{\partial L}{\partial z} = \sum_i -y_i + \rho (x_i-z)(-1)=0\\
@@ -2374,7 +2382,7 @@
   \pagebreak
   
   \section{Miscellaneous Properties}
-  $(a+x)^{-1} \approx 1-x$\\
+  $(1+x)^{-1} \approx 1-x$\\
   $\lim_{t \to 0} \frac{f(x+\epsilon t) - f(x)}{t} = \ppartial{f(x)}{x} \epsilon$\\
 
   \subsection{Pseudo-inverse}
