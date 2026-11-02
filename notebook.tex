@@ -729,8 +729,8 @@
   \subsection{KKT}
   Assumes optimality achieved with 0 duality gap: $\nabla L(x^*,\lambda^*,v^*)=0$
   \begin{align*}
-    &L(x^*,\lambda^*,v^*) = f_0(x^*) + \sum_i \lambda_i^* f_i(x^*) + \sum_i v_i h_i(x^*)\\
-    &\nabla L(x^*,\lambda^*,v^*) = \nabla f_0(x^*) + \sum_i \lambda_i^* \nabla f_i(x^*) + \sum_i v_i \nabla h_i(x^*)
+    &L(x^*,\lambda^*,v^*) = f_0(x^*) + \sum_i \lambda_i^* f_i(x^*) + \sum_i v_i^* h_i(x^*)\\
+    &\nabla L(x^*,\lambda^*,v^*) = \nabla f_0(x^*) + \sum_i \lambda_i^* \nabla f_i(x^*) + \sum_i v_i^* \nabla h_i(x^*)
   \end{align*}
   We have the constraints:
   \begin{align*}
@@ -738,7 +738,7 @@
     &\lambda_i^* \geq 0\\
     &h_i(x^*)=0\\
     &\lambda_i^* f_i(x^*)=0\\
-    &\nabla L(x^*,\lambda^*,v^*) = \nabla f_0(x^*) + \sum_i \lambda_i^* \nabla f_i(x^*) + \sum_i v_i \nabla h_i(x^*)
+    &\nabla L(x^*,\lambda^*,v^*) = \nabla f_0(x^*) + \sum_i \lambda_i^* \nabla f_i(x^*) + \sum_i v_i^* \nabla h_i(x^*) = 0
   \end{align*}
 
   Primal inequality constraints convex and equality constraints affine and KKT satisfied $\implies$ 0 duality gap with specified points for primal and dual. (sufficient).\\
@@ -942,7 +942,7 @@
   Normalized Steepest Descent
   \begin{align*}
     &\Delta x_{nsd} = \argmin_{v} \set{ \nabla f(x)^T v : \norm{v} \leq 1 }\\
-    &\Delta x_{nsd} = \frac{\Delta x_{sd}}{\norm{\nabla f(x)}}_*\\
+    &\Delta x_{nsd} = \frac{\Delta x_{sd}}{\norm{\nabla f(x)}_*}\\
     &\norm{\nabla f(x)}_* = \sup_y \{\nabla f(x)^T y: \|y\| \leq 1 \}\ (dual norm)\\
     &\nabla f(x)^T \Delta x_{sd} = \nabla f(x)^T \Delta x_{nsd} \norm{\nabla f(x)}_* = -\norm{\nabla f(x)}_*^2
   \end{align*}
@@ -950,7 +950,7 @@
   Steepest Descent for L2-Norm
   \begin{align*}
     &\Delta x = -\nabla f(x)\\
-    &\Delta x_{nsd} = \frac{-\nabla f(x)}{\norm{\nabla f(x)}}_*\\
+    &\Delta x_{nsd} = \frac{-\nabla f(x)}{\norm{\nabla f(x)}_*} = \frac{-\nabla f(x)}{\norm{\nabla f(x)}_2}\ \text{(dual norm of L2 is L2)}\\
   \end{align*}
   
   Steepest Descent for Quadratic Norm
@@ -1145,7 +1145,7 @@
     init $x_0 \in dom f, Ax_0=b$\;
     \Do{$\frac{1}{2}\lambda(x)^2>\epsilon$}{
       $\Delta x_{nt} \leftarrow$ Solve KKT System / Elimination\;
-      $\lambda(x)^2 \leftarrow \Delta x_{nt}^T \nabla^2 f(x)^{-1} \Delta x_{nt}$\;
+      $\lambda(x)^2 \leftarrow \Delta x_{nt}^T \nabla^2 f(x) \Delta x_{nt}$\;
       $t \leftarrow$ Compute Step Size (eg: backtrack)\;
       $x_{k+1} \leftarrow x_k + t \Delta x_{nt}$
     }
@@ -1262,7 +1262,7 @@
   Equivalence if for infeasible start, we select:
   \begin{align*}
     &v = \Delta x\\
-    &A^T(\Delta v + v) = A^T w = 0\\
+    &A^T(\Delta v + v) = A^T w\\
     &w = v + \Delta v
   \end{align*}
   Solving using primal-dual formulation, obtain $\Delta v, \Delta x$\\
@@ -1462,7 +1462,7 @@
     &from\ dual:\\
     &g(\lambda) \leq f_0(x) + \sum_i \lambda_i f_i(x), Ax=b\\
     &\lambda_i = -\frac{1}{t f_i(x)}, f_i(x) \leq 0 \implies same\ KKT\ conditions\\
-    &x^*(t)\ minimizes\ for\ particular\ \lambda_i^*(t) = -\frac{1}{t f_i(x)}\\
+    &x^*(t)\ minimizes\ for\ particular\ \lambda_i^*(t) = -\frac{1}{t f_i(x^*(t))}\\
     &g(\lambda^*(t)) = f_0(x^*(t)) + \sum_i \lambda_i^*(t) f_i(x^*(t)), Ax^*(t)=b\\
     &g(\lambda^*(t)) = f_0(x^*(t)) + \sum_i -\frac{1}{t f_i(x^*(t))} f_i(x^*(t))\\
     &g(\lambda^*(t)) = f_0(x^*(t)) + \sum_{i=1}^m -\frac{1}{t}, Ax^*(t)=b\\
@@ -1640,7 +1640,7 @@
   Use subgradient, $s$, s.t. $g(\tilde{\lambda}) \leq g(\lambda) + s^T(\tilde{\lambda} - \lambda), \forall \tilde{\lambda}$\\
 
   $(u^*,v^*)$ for a fixed $\lambda$:\\
-  $S=Fu^*+Gv^*-h$ is a subgradient of $g$ at $\lambda$\\
+  $s=Fu^*+Gv^*-h$ is a subgradient of $g$ at $\lambda$\\
   
   $g(\tilde{\lambda}) = \min_{u,v} c^Tu + d^Tv + \tilde{\lambda}^T(Fu+Gv-h) \leq c^Tu^* + d^Tv^*+\tilde{\lambda}^T(Fu^*+Gv^*-h)$\\
 
