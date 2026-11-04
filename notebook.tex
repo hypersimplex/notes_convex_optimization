@@ -351,7 +351,7 @@
     x_2 \in S^n_+ \implies v^Tx_2v \geq 0\\
     x=\theta x_1 +(1-\theta)x_2, \theta \in [0,1]\\
     v^T(\theta x_1 + (1-\theta)x_2)v \geq 0\\
-    v^T\theta x_1 v + (1-\theta)v^T x_2 v \implies x \in S^n_+\\
+    v^T\theta x_1 v + (1-\theta)v^T x_2 v \geq 0 \implies x \in S^n_+\\
   \end{align*}
   convexity check for cone:\\
   \begin{align*}
@@ -475,7 +475,7 @@
   \item $f(x) = log(\sum_i e^{x_i}), dom\ f = \R^n, \implies f$ convex\\
     note: $\max_i x_i \leq f(x) \leq \max_i x_i + log(n)$
   \item $f(x) = (\prod_i^n x_i)^{\frac{1}{n}}, dom\ f = \R_{++}^n, \implies f$ concave
-  \item $f(x) = log(det(X)), dom\ f = S_{++}^n, \implies f$ concave
+  \item $f(X) = log(det(X)), dom\ f = S_{++}^n, \implies f$ concave
   \end{itemize}
   
   \subsection{log det X, concave}
@@ -499,7 +499,7 @@
   \subsection{log $\sum_i exp(x_i)$, convex}
   \begin{align*}
     \nabla^2 f = \frac{1}{(1^Tz)^2} (1^Tz diag(z) -zz^T)\\
-    v^T zz^T v = det(v^T zz^T v) = det(vv^T zz^T)\\
+    v^T zz^T v = trace(v^T zz^T v) = trace(vv^T zz^T)\\
     v^T zz^T v = \sum_j \sum_i z_j z_i v_j v_i\\
     v^T zz^T v = (\sum_i z_i v_i)^2\\
     use\ Holder's\ Inequality:\\
@@ -810,17 +810,17 @@
 
   given a fixed slope/normal vector, $y$ of a hyperplane, a supporting hyperplane for $V = epi\ f$ satisfies the following:
   \begin{align*}
-    &f(x) \geq y^T x - \alpha, \forall x \in V, \exists \alpha\\
-    &\alpha \geq y^T x - f(x), \forall x \in V, \exists \alpha\\
-    &\alpha \geq \sup_{x \in V} (y^T x - f(x))
+    &f(x) \geq y^T x - \alpha, \forall x \in dom\ f, \exists \alpha\\
+    &\alpha \geq y^T x - f(x), \forall x \in dom\ f, \exists \alpha\\
+    &\alpha \geq \sup_{x \in dom\ f} (y^T x - f(x))
   \end{align*}
   where we simply pick the affine minorant (best / upper lower bound) of $f$ that satisfies constraint of the supporting hyperplane (other candidates would not work since a hyperplane defined using one of those would not capture all elements of the $epi\ f$ on one side of the hyperplane)
 
-  $\alpha = f^*(y) = \sup_{x \in V}(y^T x - f(x))$
+  $\alpha = f^*(y) = \sup_{x \in dom\ f}(y^T x - f(x))$
 
   $f^*(y) = \infty \implies$ no affine minorant of $f$ with slope $y$ exists
   
-  $f^*(y) < \infty \implies$ $y^T x - f(x)$ is the best choice of affine minorant of $f$ with slope $y$
+  $f^*(y) < \infty \implies$ $y^T x - f^*(y)$ is the best choice of affine minorant of $f$ with slope $y$
 
   for each $y$, we obtain a supporting hyperplane $\implies$ the set of these supporting hyperplanes can define the convex envelope of $epi\ f$ by taking the intersection of all of them ($f^*(y)$ is convex unconditionally; equivalently proved using pointwise supremum of affine functions of $y$)
   
